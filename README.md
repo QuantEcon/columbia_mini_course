@@ -23,7 +23,7 @@ Topics:
 * The Python language: syntax and semantics
 * Object oriented vs procedural programming
 * [Jupyter notebooks](http://jupyter.org/)
-* The major scientific libraries ( [SciPy]((http://www.scipy.org/) / NumPy / [Matplotlib](http://matplotlib.org/) / etc.)
+* The major scientific libraries ( [SciPy](http://www.scipy.org/) / NumPy / [Matplotlib](http://matplotlib.org/) / etc.)
 * [Numba](http://numba.pydata.org/) and other JIT compilers
 * Parallelization
 * Distributed and cloud computing

@@ -42,7 +42,7 @@ No Python knowledge is assumed.
 ### Notes on AWS
 
 
-To get an instance running
+#### To get an instance running
 
 1. Login to Amazon AWS Console 
 2. Navigate to EC2 Service
@@ -52,7 +52,16 @@ To get an instance running
 5. enable access through Port 8000 (in addition to Port 22 for ssh)
 6. Choose security key you've set up
 
-Configure Instance to Run Jupyter
+#### Connecting and set up 
+
+Use `ssh -i /path/to/pem-key ubuntu@hostname`
+
+Here `hostname` is your Public DNS, as shown in the instance information from AWS console
+
+Now run `sudo apt-get update` so you can install things you might need using `apt-get`
+
+
+#### Configure instance to run Jupyter
 
 1. ssh into the running instance using IP from AWS Console
 2. Install Anaconda using wget and the latest download link for python36

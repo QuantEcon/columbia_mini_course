@@ -47,7 +47,7 @@ No Python knowledge is assumed.
 1. Login to Amazon AWS Console 
 2. Navigate to EC2 Service
 3. Choose your region for setting up an instance
-6. Choose security key-pair for the region if you don't have one
+6. Create security key-pair for the region if you don't have one
 4. Launch & Configure an instance and choose Ubuntu 64-bit
 5. enable access through Port 8000 (in addition to Port 22 for ssh)
 6. Choose security key you've set up

@@ -18,17 +18,28 @@ Julia).
 
 No Python knowledge is assumed.  
 
-### Topics:
+### Schedule
+
+
+#### Day 1
 
 * Python vs MATLAB vs Julia vs Fortran vs others
 * The Python language: syntax and semantics
 * Object oriented vs procedural programming
 * [Jupyter notebooks](http://jupyter.org/)
+
+#### Day 2
+
 * The major scientific libraries ( [SciPy](http://www.scipy.org/) / NumPy / [Matplotlib](http://matplotlib.org/) / etc.)
 * [Numba](http://numba.pydata.org/) and other JIT compilers
 * Parallelization
 * Distributed and cloud computing
-* Applications from economic dynamics (e.g., asset pricing, optimal stopping)
+
+#### Day 3
+
+* Applications (asset pricing, optimal savings, optimal stopping)
+
+
 
 
 ### Links:

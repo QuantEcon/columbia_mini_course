@@ -5,8 +5,7 @@
 
 * Instructor: John Stachurski
 * Dates: 26--28th March 2018
-* Times: 9--12 each morning
-* Location: TBA
+* Times and location: see [here](http://econ.columbia.edu/mini-course-john-stachurski-part-i-iii)
 
 
 ### Summary

@@ -18,6 +18,10 @@ Julia).
 
 No Python knowledge is assumed.  
 
+Please **be sure to bring your laptop**
+
+
+
 ### Schedule
 
 

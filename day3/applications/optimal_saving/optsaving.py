@@ -38,11 +38,11 @@ class SavingsProblem:
                  ρ=0.9,
                  d=0.0,
                  σ=0.1,
-                 r=0.05,
+                 r=0.04,
                  w=1.0,
                  z_grid_size=25,
                  x_grid_size=200,
-                 x_grid_max=10):
+                 x_grid_max=15):
 
         self.β, self.γ = β, γ
         self.R = 1 + r
@@ -50,23 +50,24 @@ class SavingsProblem:
         self.z_grid_size, self.x_grid_size = z_grid_size, x_grid_size
 
         mc = qe.rouwenhorst(z_grid_size, d, σ, ρ)
-
         self.Q = mc.P
         self.z_grid = np.exp(mc.state_values)
+
         self.x_grid = np.linspace(0.0, x_grid_max, x_grid_size)
 
     def pack_parameters(self):
         return self.β, self.γ, self.R, self.w, self.Q, self.x_grid, self.z_grid
 
-    def compute_fixed_point(self, 
-                            tol=1e-4, 
-                            max_iter=1000, 
-                            verbose=True,
-                            print_skip=25): 
+    def value_function_iteration(self, 
+                                tol=1e-4, 
+                                max_iter=1000, 
+                                verbose=True,
+                                print_skip=25): 
 
-        # Set initial condition
+        # Set initial condition, set up storage
         v_in = np.ones((self.x_grid_size, self.z_grid_size))
         v_out = np.empty_like(v_in)
+        π = np.empty_like(v_in, dtype=np.int)
 
         # Set up loop
         params = self.pack_parameters()
@@ -74,7 +75,7 @@ class SavingsProblem:
         error = tol + 1
 
         while i < max_iter and error > tol:
-            T(v_in, v_out, params)
+            T(v_in, v_out, π, params)
             error = np.max(np.abs(v_in - v_out))
             i += 1
             if i % print_skip == 0:
@@ -87,12 +88,17 @@ class SavingsProblem:
         if verbose and i < max_iter:
             print(f"\nConverged in {i} iterations.")
 
-        return v_out
+        return v_out, π
 
 
 @jit(nopython=True, parallel=True)
-def T(v, v_out, params):
+def T(v, v_out, π, params):
+    """
+    Given v, compute Tv and write it to v_out.
 
+    At the same time, compute the v-greedy policy and write it to π
+
+    """
     n, m = v.shape
     β, γ, R, w, Q, x_grid, z_grid = params
 
@@ -114,8 +120,11 @@ def T(v, v_out, params):
             for k in range(idx):
                 x_next = x_grid[k]
                 val = u(y - x_next, γ) + β * np.sum(v[k, :] * Q[j, :])
-                max_so_far = max(val, max_so_far)
+                if val > max_so_far:
+                    max_so_far = val
+                    k_star = k
 
+            π[i, j] = k_star
             v_out[i, j] = max_so_far
 
 

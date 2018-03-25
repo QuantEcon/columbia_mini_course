@@ -31,6 +31,9 @@ Update Numba (still necessary as of 25th March 2018)
 
 * At terminal (Mac / Linux) or Anaconda Prompt (Windows), type `conda install numba=0.37`
 
+Get files from this repo
+
+* Use `git clone` if you know git or download [the zip file](https://github.com/QuantEcon/columbia_mini_course/archive/master.zip)
 
 
 ### Schedule

@@ -6,7 +6,7 @@ A simple optimal savings problem.  The Bellman equation is
 
 where 0 <= x' <= R x + w z and
 
-    E v(x', z') = Σ_{z'} v(x', z') p(z, z')
+    E v(x', z') = Σ_{z'} v(x', z') Q(z, z')
 
 We take 
 
@@ -51,12 +51,12 @@ class SavingsProblem:
 
         mc = qe.rouwenhorst(z_grid_size, d, σ, ρ)
 
-        self.p = mc.P
+        self.Q = mc.P
         self.z_grid = np.exp(mc.state_values)
         self.x_grid = np.linspace(0.0, x_grid_max, x_grid_size)
 
     def pack_parameters(self):
-        return self.β, self.γ, self.R, self.w, self.p, self.x_grid, self.z_grid
+        return self.β, self.γ, self.R, self.w, self.Q, self.x_grid, self.z_grid
 
     def compute_fixed_point(self, 
                             tol=1e-4, 
@@ -94,7 +94,7 @@ class SavingsProblem:
 def T(v, v_out, params):
 
     n, m = v.shape
-    β, γ, R, w, p, x_grid, z_grid = params
+    β, γ, R, w, Q, x_grid, z_grid = params
 
     for j in prange(m):
         z = z_grid[j]
@@ -113,7 +113,7 @@ def T(v, v_out, params):
             # Step through x' with 0 <= x' <= y, find max
             for k in range(idx):
                 x_next = x_grid[k]
-                val = u(y - x_next, γ) + β * np.sum(v[k, :] * p[j, :])
+                val = u(y - x_next, γ) + β * np.sum(v[k, :] * Q[j, :])
                 max_so_far = max(val, max_so_far)
 
             v_out[i, j] = max_so_far
